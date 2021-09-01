@@ -55,34 +55,7 @@ class data_generator(DataGenerator):
         index=1
         # for is_end, (text,text1, label) in self.sample(random):
         for is_end, (oldname,text,text1, edge,label) in self.sample(random):
-
-            # # print("text=", text)
-            # # print("text1=", text1)
-            # index1 = text.find("{")
-            #
-            # index2 = text1.find("{")
-            # if (index1==-1 or index2==-1):
-            #     text = text
-            #     text1 = text1
-            # else:
-            #     text = text[index1:]
-            #     text1 = text1[index2 :]
-            # # print("text=",text)
-            # # print("text1=",text1)
-
-
             token_ids, segment_ids = tokenizer.encode(text,text1, maxlen=maxlen)
-            # print(text1)
-            # print(text)
-            # print("token len=",len(token_ids))
-            # token_len=token_len+(len(token_ids)-2)
-            # print(index,"]sum len=", token_len)
-            # index=index+1
-            # print("text1=",text)
-            # print("text2=", text1)
-            # print("token ids=", token_ids)
-            # print("segment_ids=", segment_ids)
-
             batch_token_ids.append(token_ids)
             batch_segment_ids.append(segment_ids)
             batch_labels.append([label])
@@ -125,19 +98,14 @@ from sklearn.metrics import roc_auc_score
 if __name__ == '__main__':
 
     proj="camel"
-    issmall=""
+    
     # 加载数据集
-    train_data ,train= load_data('C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\train_data_6x\\3x\\'+proj+'_train.csv' )
-    val_data ,val= load_data('C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\test_data_6x\\no_order\\beam_test_mask_change.csv')
+    train_data ,train= load_data('C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\train_data\\'+proj+'_train.csv' )
+    val_data ,val= load_data('C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\test_data\\beam_test_mask_change.csv')
 
-    # train_data ,train= load_data('beam_zeppelin_prepocessed.csv')
-    # val_data ,val= load_data('bi_train_method.csv')
+  
+    test_data, test = load_data('C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\test_data\\'+proj+'_test_mask_change.csv')
 
-    # test_data, test = load_data(
-    #     'C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\test_data_6x\\beam_prepocessed_02.csv')
-    test_data, test = load_data('C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\test_data_6x\\no_order\\'+proj+'_test_mask_change'+issmall+'.csv')
-
-    # # test_data, test = load_data('bi_train_method.csv')
     print(train['label_class'].value_counts())
 
 
@@ -231,82 +199,18 @@ if __name__ == '__main__':
         callbacks=[earlystop,checkpoint]
     )
 
-    # history_dict = history.history
-    # print(history_dict.keys())
-    #
-    # # 训练loss
-    # # 绘制训练损失，每轮都下降
-    # import matplotlib.pyplot as plt
-    #
-    # loss_values = history_dict['loss']
-    # val_loss_values = history_dict['val_loss']
-    # epochs = range(1, len(loss_values) + 1)
-    # plt.plot(epochs, loss_values, 'r', label='Training loss')
-    # plt.plot(epochs, val_loss_values, 'b', label='Validation loss')
-    # plt.title('Training and validation loss')
-    # plt.xlabel('Epochs')
-    # plt.ylabel('Loss')
-    # plt.legend()
-    # plt.show()
-    #
-    # plt.clf()
-    # f1 = history_dict['f1']
-    # val_f1 = history_dict['val_f1']
-    # plt.plot(epochs, f1, 'r', label='Training f1_score')
-    # plt.plot(epochs, val_f1, 'b', label='Validation f1_score')
-    # plt.title('Training and validation f1_score')
-    # plt.xlabel('Epochs')
-    # plt.ylabel('f1_score')
-    # plt.legend()
-    # plt.show()
-    # plt.clf()
-    # f1 = history_dict['precision']
-    # val_f1 = history_dict['val_precision']
-    # plt.plot(epochs, f1, 'r', label='Training precision')
-    # plt.plot(epochs, val_f1, 'b', label='Validation precision')
-    # plt.title('Training and validation precision')
-    # plt.xlabel('Epochs')
-    # plt.ylabel('precision')
-    # plt.legend()
-    # plt.show()
-    # plt.clf()
-    # f1 = history_dict['recall']
-    # val_f1 = history_dict['val_recall']
-    # plt.plot(epochs, f1, 'r', label='Training recall')
-    # plt.plot(epochs, val_f1, 'b', label='Validation recall')
-    # plt.title('Training and validation recall')
-    # plt.xlabel('Epochs')
-    # plt.ylabel('recall')
-    # plt.legend()
-    # plt.show()
-    # score,  f1, precision, recall = model.evaluate(test_generator, steps=50,
-    #                                                           max_queue_size=10,
-    #                                                           use_multiprocessing=False)
-    # print('score:', score, 'f1:', f1, 'precision:', precision, 'recall', recall)
+   
     model.load_weights('v3_best_model.weights')
     test_pred = []
     test_true = []
-    #+++++++++++++++++++++
-
-
-
-
-
-
-
-    # for x,y in test_generator:
-    #
-    #     p = model.predict(x).argmax(axis=1)
-    #     test_pred.extend(p)
-    #
-    # test_true = test_data[:,2].tolist()
+   
     for x, y in test_generator:
         p = model.predict(x).argmax(axis=1)
         test_pred.extend(p)
 
     test_true = test_data[:, 4].tolist()
 
-    print("项目=",proj)
+    print("project=",proj)
     fp = 0
     tp = 0
     fn = 0
@@ -348,34 +252,7 @@ if __name__ == '__main__':
 
 
 
-    # name_set = test['oldname'].tolist()
-    # #
-    # #
-    # def calChangeNum(i,test_pred):
-    #     data=test["edge"].tolist()
-    #     x=data[i]
-    #     #获取第i个标识符的相关实体集合 edge
-    #     edges = x.split("|")
-    #
-    #     changeEnt = 0
-    #
-    #     for e in edges:
-    #         index = e.find(',')
-    #         # 获取相关实体
-    #         node = e[index + 1:-1].strip()
-    #         # 在test_pred中
-    #
-    #         if node in name_set:
-    #             index = name_set.index(node)
-    #             if test_pred[index] == 1:
-    #                 changeEnt = changeEnt + 1
-    #         # else:
-    #         #     print(node, changeEnt)
-    #         #     changeEnt = changeEnt + 0
-    #
-    #
-    #     #     print(sumEnt)
-    #     return changeEnt
+  
 
 
     changeNum=test['changeNum'].tolist()
