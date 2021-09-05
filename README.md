@@ -29,8 +29,10 @@ After the filtering is completed, `oldStmt` and `newStmt` are used as model inpu
 1. Collect the renaming data of the project
 https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction_preprocess/src/main/java/Extractor/HistoryAnalysis.java
 2. Filter method renaming data
-3.Generate the old and new versions of the database based on the renaming data in step 2
-4.generate test data
+https://github.com/konL/MethodRenamePrediction/blob/07fff20c2f3933273a23bf4ea4d10cec61029c3f/RenamePrediction_preprocess/src/main/java/create_proj_method.java
+4.Generate the old and new versions of the database based on the renaming data in step 2
+https://github.com/konL/MethodRenamePrediction/blob/07fff20c2f3933273a23bf4ea4d10cec61029c3f/RenamePrediction_preprocess/src/main/java/createVerDB.java
+5.generate test data
 - Collect old info and new info from the old and new versions of the database
 https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction_preprocess/src/main/java/createEmbedding/creatResultFile.java
 - Collect related entities and calculate the number of `changeNum`
@@ -39,8 +41,7 @@ https://github.com/konL/MethodRenamePrediction/blob/main/RenamePrediction/DataUt
 https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction/DataUtils/delStmt_processing.py
 - Mask method name
 https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction/DataUtils/delDeclare.py
-
-5.Generate training data
+5. Generate training data
 https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction/DataUtils/createTraindata.py
 
 (2) Training and prediction
