@@ -45,6 +45,7 @@ https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c3623
 https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction/DataUtils/createTraindata.py
 
 (2) Training and prediction
+
 6. Training and prediction
 The test data of a project and its corresponding training data are selected for prediction, and the Precision, Recall and F-measure of the project are finally output.
 https://github.com/SerVal-DTF/debug-method-RenamePrediction/prediction/keras4bert_loaddata.py
