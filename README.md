@@ -1,7 +1,7 @@
 # Data Description
 We provide test data (test_data) and training data can be constructed by ourselves. The strategy adopted in our paper is to use test data from nine of the projects combined into training data to predict one of the remaining projects.
-The training set should be used to build your machine learning model. For the test set we provided, it was constructed several times. oldName and newName were used to construct label_class, edge was used to calculate changeNum, and oldStmt_body and newStmt_body were used to filter the data for the input model.
-After the filtering is completed, oldStmt and newStmt are used as model inputs and label_class is the expected output.
+The training set should be used to build your machine learning model. For the test set we provided, it was constructed several times. `oldName` and `newName` were used to construct `label_class`, `edge` was used to calculate `changeNum`, and `oldStmt_body` and `newStmt_body` were used to filter the data for the input model.
+After the filtering is completed, `oldStmt` and `newStmt` are used as model inputs and `label_class` is the expected output.
 
 
 |Column|Variable|Definition|Type|Content|
@@ -24,3 +24,26 @@ After the filtering is completed, oldStmt and newStmt are used as model inputs a
 
 
 # Quick Start
+(1) Prepare data
+**Note that:Preparing data will take a long time, the output data is the test data we provided(test_data).**
+1. Collect the renaming data of the project
+https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction_preprocess/src/main/java/Extractor/HistoryAnalysis.java
+2. Filter method renaming data
+3.Generate the old and new versions of the database based on the renaming data in step 2
+4.generate test data
+- Collect old info and new info from the old and new versions of the database
+https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction_preprocess/src/main/java/createEmbedding/creatResultFile.java
+- Collect related entities and calculate the number of `changeNum`
+https://github.com/konL/MethodRenamePrediction/blob/main/RenamePrediction/DataUtils/createChangeFile.py
+- Filter method
+https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction/DataUtils/delStmt_processing.py
+- Mask method name
+https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction/DataUtils/delDeclare.py
+
+5.Generate training data
+https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction/DataUtils/createTraindata.py
+
+(2) Training and prediction
+6. Training and prediction
+The test data of a project and its corresponding training data are selected for prediction, and the Precision, Recall and F-measure of the project are finally output.
+https://github.com/SerVal-DTF/debug-method-RenamePrediction/prediction/keras4bert_loaddata.py
