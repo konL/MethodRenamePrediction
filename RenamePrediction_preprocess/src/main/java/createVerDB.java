@@ -6,19 +6,17 @@ import java.io.*;
 public class createVerDB {
     public static void main(String[] args) throws Exception {
         //传入项目名称
-        //ProjectCommit("zeppelin");
-        ProjectCommit("Test");
-       //ProjectCommit("facebook-android-sdk");
-        //ProjectCommit("dubbo");
+        ProjectCommit("flink");
     }
 
     private static void ProjectCommit(String project) throws Exception {
+        //Location of the project folder containing the commit history
         String projectpath="C:\\project\\IdentifierStyle\\data\\GitProject\\"+project;
-        String csvPath="C:\\project\\IdentifierStyle\\log\\dump\\"+project+".csv";
-        //String csvPath="C:\\project\\IdentifierStyle\\log\\dump\\"+project+"_test.csv";
+        //Location of the renaming method database
+        String csvPath="C:\\project\\IdentifierStyle\\log\\dump\\"+project+"_method.csv";
+        //Temp file
         String LogOutput = "C:\\Users\\delll\\IdeaProjects\\DatasetCreate\\src\\main\\resources\\log.txt";
-        System.out.println(ExecuteCommand(projectpath, "git rev-parse HEAD ",LogOutput));
-
+       
 
         try {
             // 创建CSV读对象
@@ -33,26 +31,16 @@ public class createVerDB {
                 String his=csvReader.get(3);
                 String[] hisId=his.split("<-");
                 String[] loc=locHis.split("<=");
-                //第一个版本比对
-
-                //String curCom=finalCom;
-//                String oldCom=csvReader.get(4);
-
-
+                //All changes of the identifier are traversed
                 for(int i=0;i<hisId.length-1;i++){
                     String change=hisId[i]+"<-"+hisId[i+1];
-                    System.out.println(change);
-//                    System.out.println(curCom+","+oldCom);
                     String curCom=csvReader.get(4+i);
-                    //生成两个文件传入ProjectDiff
+                    //把标识符产生变化的提交中涉及到的文件的前后两个版本下载下来
                     genFile(project,loc[i],curCom,change);
-                    ProjectDiff(change);
-                    //删除新旧文件夹中的对比文件
                     curCom=csvReader.get(4+(i+1));
 
 
                 }
-                //结束后把old文件夹和new文件夹中的内容清空
 
 
 
@@ -65,20 +53,16 @@ public class createVerDB {
 
     }
 
-    private static void ProjectDiff(String change) {
-        //读取旧文件，新文件，对比
-        //读取变化的标识符
-        String changeId=change;
-    }
 
     private static void genFile(String project, String loc, String curCom, String change) throws Exception {
+        //the location of original and current file
         String[] srcAnddst=loc.split("<-");
 
         change=change.replace("<-","_");
-        //获取FileName和前面的文件夹名字
+        //获取新的Filelocation
         String[] data_n=srcAnddst[0].split("\\\\");
         String fileName_n=data_n[data_n.length-1];
-
+         //获取旧的Filelocation
         String[] data_o=srcAnddst[1].split("\\\\");
         String fileName_o=data_o[data_o.length-1];
 
@@ -94,19 +78,15 @@ public class createVerDB {
     }
 
     private static void generateOld(String location,String fileName, String output) throws Exception {
-        System.out.println("location="+location);
+       
 
         String[] data=location.split("\\\\");
-//        for (String s:data){
-//            System.out.println("generateNew======>"+s);
-//
-//        }
+
 
         String proj=data[0]+"\\\\"+data[2]+"\\\\"+data[4]+"\\\\"+data[6]+"\\\\"+data[8]+"\\\\"+data[10];
 
         //先回退到版本old,再回退到上一个版本
-//        ExecuteCommand(proj,"git reset --hard "+oldCom,"C:\\Users\\delll\\IdeaProjects\\DatasetCreate\\src\\main\\resources\\result.txt");
-//        copyTo(location,output);
+// 注意这里的git命令由于在windows操作需要做一点字符上的处理，在其他系统上操作git命令也需要修改
         ExecuteCommand(proj,"git reset --hard \"HEAD^\"","C:\\Users\\delll\\IdeaProjects\\DatasetCreate\\src\\main\\resources\\result.txt");
 
 
@@ -117,10 +97,6 @@ public class createVerDB {
     private static void generateNew(String location, String curCom,String fileName,String output) throws Exception {
 
         String[] data=location.split("\\\\");
-//        for (String s:data){
-//            System.out.println("generateNew======>"+s);
-//
-//        }
 
         String proj=data[0]+"\\\\"+data[2]+"\\\\"+data[4]+"\\\\"+data[6]+"\\\\"+data[8]+"\\\\"+data[10];
 
@@ -188,10 +164,10 @@ public class createVerDB {
         System.out.println("Return code = " + returnCode);
 
         try (FileReader reader = new FileReader(output);
-             BufferedReader br = new BufferedReader(reader) // 建立一个对象，它把文件内容转成计算机能读懂的语言
+             BufferedReader br = new BufferedReader(reader)
         ) {
             String line;
-            //网友推荐更加简洁的写法
+
             while ((line = br.readLine()) != null) {
                 // 一次读入一行数据
                 //System.out.println(line);
