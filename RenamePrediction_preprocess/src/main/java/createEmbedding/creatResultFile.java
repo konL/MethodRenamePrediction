@@ -24,8 +24,13 @@ public class creatResultFile {
 
 
     }
+    /*
+    In this step we merge the corresponding methods (renamed or unchanged) from each file pair (new and old versions) together to get the test data
+    */
 
     private static void createProj(String proj) throws Exception {
+        
+        //输出位置
 
         BufferedWriter bw=new BufferedWriter(new FileWriter("C:\\project\\IdentifierStyle\\data\\VersionDB\\raw_data\\test_data_6x\\"+proj+"_result_t.csv",true));
         CsvWriter writer=new CsvWriter(bw,',');
