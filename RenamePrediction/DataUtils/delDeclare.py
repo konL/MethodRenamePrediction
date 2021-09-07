@@ -26,5 +26,5 @@ data_df['oldStmt'] = data_df["oldStmt"].apply(lambda x: delName(x,data_df.loc[da
 data_df['newStmt'] = data_df["newStmt"].apply(lambda x: delName(x,data_df.loc[data_df['newStmt']==x].index[0],False))
 
 print(data_df.head())
-# data_df.to_csv("C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\test_data_6x\\"+proj+"_test_mask_larger.csv")
-data_df.to_csv("C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\test_data_6x\\no_order\\"+proj+"_test_mask_change_small.csv")
+
+data_df.to_csv("C:\\project\\IdentifierStyle\\data\\VersionDB\\prepocessed_data\\test_data_6x\\no_order\\"+proj+"_test_mask_change.csv")
