@@ -24,35 +24,12 @@ import java.util.Vector;
 public class HistoryAnalysis {
     public static void main(String[] args) throws Exception {
         //读取项目的信息
-        ProjectCommit("Test");
-        //ProjectCommit("flink");
-        //ProjectCommit("facebook-android-sdk");
-       // ProjectCommit("dubbo");
-//        ProjectCommit("zeppelin");
-//        ProjectCommit("jmeter");
-//        ProjectCommit("tomcat");
-        //ProjectCommit("storm");
-      // ProjectCommit("cassandra");
-        //ProjectCommit("hbase");
-        //ProjectCommit("beam");
-        //ProjectCommit("flink");
-//        ProjectCommit("beam");
-
-
-
-
-
-
-
-
-
-
+      
+        ProjectCommit("flink");
+ 
     }
 
 
-    /*
-
-     */
     public static void ProjectCommit(String projectname) throws Exception {
 
 
@@ -163,26 +140,6 @@ public class HistoryAnalysis {
                     bw.close();
 
                 }
-//                for(String t:traceResult){
-//                    System.out.println(statement+"【History】===========》："+t);
-//                }
-//                System.out.println(identifier+",statement="+statement+",location="+lineno);
-//                //打印解析数据
-//                for(commitMessage c:allcom){
-//                    Vector<Diff> diffList=c.getDifflist();
-//                    for(Diff d:diffList){
-//                        System.out.println("[From/ToFile="+d.getFromFile()+"/"+d.getToFile()+",Index="+d.getIndex()+"]");
-//                        Vector<String> content=d.getContent();
-//                        for(String con:content){
-//                            System.out.println("content="+con);
-//                        }
-//                    }
-//
-//                }
-////            }
-
-
-
 
 
 
@@ -209,10 +166,6 @@ public class HistoryAnalysis {
         catch(Exception e)
         {
             System.err.println(e.toString());
-//			BufferedWriter bw=new BufferedWriter(new FileWriter("D:\\project\\IdentifierStyle\\data\\JavaParserCannotParse.txt",true));
-//            bw.write(javafilepath);
-//            bw.newLine();
-//            bw.close();
         }
 
         String packagename="";
