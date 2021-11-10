@@ -30,9 +30,9 @@ After the filtering is completed, `oldStmt` and `newStmt` are used as model inpu
 https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction_preprocess/src/main/java/Extractor/HistoryAnalysis.java
 2. Filter method renaming data
 https://github.com/konL/MethodRenamePrediction/blob/07fff20c2f3933273a23bf4ea4d10cec61029c3f/RenamePrediction_preprocess/src/main/java/create_proj_method.java
-4.Generate the old and new versions of the database based on the renaming data in step 2
+3. Generate the old and new versions of the database based on the renaming data in step 2
 https://github.com/konL/MethodRenamePrediction/blob/07fff20c2f3933273a23bf4ea4d10cec61029c3f/RenamePrediction_preprocess/src/main/java/createVerDB.java
-5.generate test data
+4. generate test data
 - Collect old info and new info from the old and new versions of the database
 https://github.com/konL/MethodRenamePrediction/blob/dfaada6d4065241de25f587c36239d2b81ebdf46/RenamePrediction_preprocess/src/main/java/createEmbedding/creatResultFile.java
 - Collect related entities and calculate the number of `changeNum`
